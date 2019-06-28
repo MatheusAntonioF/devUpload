@@ -66,7 +66,7 @@ class PastaModel extends AbsConexaoBD{
         $userEmail = $_SESSION['userEmail'];
         
         //Retorna o id do usuario pelo email cadastrado
-        $query = "SELECT userId FROM Usuarios WHERE userEmail = ?";
+        $query = "SELECT userId FROM Usuarios WHERE userEmail = '?'";
         $arrayDeValores = array($this->userEmail);
 
         self::executaPs($query, $arrayDeValores);
