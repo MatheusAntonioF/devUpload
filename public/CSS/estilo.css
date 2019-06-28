@@ -1,0 +1,115 @@
+body{
+    height: 100% !important;
+    width: 100% !important;
+}
+/* Estilizações a parte */
+span{
+    color:  #0066cc;
+}
+/* Classes de estlização */
+.textoBranco{
+    color: whitesmoke;
+}
+.elementoNoCentro{
+    text-align: center;
+}
+.elementoNaEsquerda{
+    text-align: left;
+}
+.elementoNaDireita{
+    text-align: right;
+}
+.corDoSistema{
+    color: #0066cc !important;
+}
+
+.fundoCorDoSistema{
+    background-color: #0066cc;
+}
+
+/* Estilização divInfo */
+div#divInfo{
+    margin-bottom: 4% !important;
+}
+div#coluna1{
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 15px;
+    font-family: Helvetica, sans-serif ;
+}
+div#coluna2{
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 15px;
+    font-family: Helvetica, sans-serif ;
+}
+/* Estilização navBarInicial */
+nav#navBarInicial{
+    background-color: rgba(0, 0, 0, 0.5);  
+}
+div#divNavBar{
+    font-size: 16px !important;
+}
+p#navBarBrand{
+    font-size: 28px !important;
+}
+button#btnCadastro{
+    font-size: 18px !important;
+    color: #0066cc;
+}
+button#btnCadastro:hover{
+    color: black;
+    text-shadow: 2px 2px 5px #0066cc;
+    transition: text-shadow 3s;
+
+}
+/* Estilização da divInicial */
+div#divInicial{
+    background-image: url('../Imagens/background.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+/* Estilização da divErros */
+div#divErros{
+    border-radius: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    
+}
+p#pErros{
+    color:  #ff1a1a;
+    font-family: Arial, sans-serif ;
+    
+}
+/* Estilização da divMenu */
+div#divMenu{
+    background-image: url('../Imagens/background.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+img#imgUsuario{
+    margin-top: 15% !important;
+}
+
+/* -------------------------------------------------------------------------------------------------------------------------------------------- */
+
+/* Desktop grande */
+@media (min-width: 1200px) {
+    
+    div#divNavBar{
+        margin-left: 75% !important;
+        font-size: 20px !important;
+        text-decoration: none;
+    }
+    .topEstilizado{
+        margin-top: 3% !important;
+    }
+    /* Estilização da divInicialMenu */
+    div#divInicialMenu{
+        width: 100% !important;
+    }
+}
+/* Telefones em paisagem a tablet em retrato */
+@media (max-width: 767px) {
+    
+    div#coluna2{
+        margin-top: 2% !important;
+    }
+}

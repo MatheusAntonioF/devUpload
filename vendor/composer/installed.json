@@ -1,0 +1,102 @@
+[
+    {
+        "name": "faapz/pdo",
+        "version": "v1.11.0",
+        "version_normalized": "1.11.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/FaaPz/PDO.git",
+            "reference": "a84ac97d3df7c021ccd4af4b28b2afeb75e42894"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/FaaPz/PDO/zipball/a84ac97d3df7c021ccd4af4b28b2afeb75e42894",
+            "reference": "a84ac97d3df7c021ccd4af4b28b2afeb75e42894",
+            "shasum": ""
+        },
+        "require": {
+            "ext-pdo": "*",
+            "php": ">=5.3.0"
+        },
+        "time": "2019-03-06T13:07:56+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "FaaPz\\PDO\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Fabian de Laender",
+                "email": "fabian@faapz.productions",
+                "homepage": "https://faapz.productions",
+                "role": "Developer"
+            }
+        ],
+        "description": "Just another PDO database library",
+        "homepage": "https://github.com/FaaPz/PDO",
+        "keywords": [
+            "database",
+            "pdo",
+            "sql"
+        ]
+    },
+    {
+        "name": "twbs/bootstrap",
+        "version": "v4.3.1",
+        "version_normalized": "4.3.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/twbs/bootstrap.git",
+            "reference": "8fa0d3010112dca5dd6dd501173415856001ba8b"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/twbs/bootstrap/zipball/8fa0d3010112dca5dd6dd501173415856001ba8b",
+            "reference": "8fa0d3010112dca5dd6dd501173415856001ba8b",
+            "shasum": ""
+        },
+        "replace": {
+            "twitter/bootstrap": "self.version"
+        },
+        "time": "2019-02-13T16:01:40+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "3.3.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Jacob Thornton",
+                "email": "jacobthornton@gmail.com"
+            },
+            {
+                "name": "Mark Otto",
+                "email": "markdotto@gmail.com"
+            }
+        ],
+        "description": "The most popular front-end framework for developing responsive, mobile first projects on the web.",
+        "homepage": "https://getbootstrap.com/",
+        "keywords": [
+            "JS",
+            "css",
+            "framework",
+            "front-end",
+            "mobile-first",
+            "responsive",
+            "sass",
+            "web"
+        ]
+    }
+]

@@ -1,0 +1,14 @@
+{
+    "sqltools.connections": [
+        {
+            "connectionTimeout": 30,
+            "database": "devUpload",
+            "dialect": "MySQL",
+            "name": "devUpload",
+            "password": "440731",
+            "port": 3306,
+            "server": "localhost",
+            "username": "root"
+        }
+    ]
+}

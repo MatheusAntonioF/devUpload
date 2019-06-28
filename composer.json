@@ -1,0 +1,19 @@
+{
+    "name": "matheus/devupload",
+    "description": "Projeto para gerenciar arquivos, realizando uploads e consultas",
+    "authors": [
+        {
+            "name": "matheus",
+            "email": "matheusantoniof@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "DevUpload\\":"source/"
+        }
+    },
+    "require": {
+        "twbs/bootstrap": "4.3.1",
+        "faapz/pdo": "^1.11"
+    }
+}
