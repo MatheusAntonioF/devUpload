@@ -64,18 +64,19 @@ class PastaModel extends AbsConexaoBD{
             session_start();
         }
         $userEmail = $_SESSION['userEmail'];
-
+        
         //Retorna o id do usuario pelo email cadastrado
-        $query = "SELECT userId FROM Usuarios WHERE userEmail = '?'";
-        $this->userEmail = $userEmail;
-        
+        $query = "SELECT userId FROM Usuarios WHERE userEmail = ?";
         $arrayDeValores = array($this->userEmail);
+
         self::executaPs($query, $arrayDeValores);
-        
+
         $userId = $this->leTabelaBD();
         var_dump($userId);
-        echo "<br>";
+        $this->fk_userPast = $userId['userId'];
         
+        echo "<br>";
+
         $this->fk_userPast = $userId['userId'];
 
         $query = "SELECT * FROM Pastas WHERE fk_userPast = ?"; 
