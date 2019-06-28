@@ -7,8 +7,10 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'DevUpload\\Controller\\AbsController' => $baseDir . '/source/Controller/absController.class.php',
+    'DevUpload\\Controller\\HomeController' => $baseDir . '/source/Controller/homeController.class.php',
     'DevUpload\\Controller\\IndexController' => $baseDir . '/source/Controller/indexController.php',
     'DevUpload\\Model\\AbsConexaoBD' => $baseDir . '/source/Model/absConexaoBD.class.php',
+    'DevUpload\\Model\\PastaModel' => $baseDir . '/source/Model/ṕastaModel.class.php',
     'DevUpload\\Model\\UsuarioModel' => $baseDir . '/source/Model/usuarioModel.class.php',
     'DevUpload\\Router' => $baseDir . '/source/Router.class.php',
     'FaaPz\\PDO\\Clause\\ClauseContainer' => $vendorDir . '/faapz/pdo/src/Clause/ClauseContainer.php',

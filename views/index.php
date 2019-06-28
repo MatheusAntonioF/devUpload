@@ -76,7 +76,7 @@
                                 <small>Fique tranquilo! Sua senha será criptografada.</small>
                             </div>
                             <div class="col-sm-5 topEstilizado">
-                                <button type="submit" class="btn btn-primary">Enviar</button>
+                                <button type="submit" class="btn btn-success">Enviar</button>
                             </div>
                             
                         </form>

@@ -88,6 +88,8 @@ img#imgUsuario{
     margin-top: 15% !important;
 }
 
+
+
 /* -------------------------------------------------------------------------------------------------------------------------------------------- */
 
 /* Desktop grande */
@@ -104,6 +106,12 @@ img#imgUsuario{
     /* Estilização da divInicialMenu */
     div#divInicialMenu{
         width: 100% !important;
+    }
+    /*Estilizações divMenu*/
+    button#btnNovo{
+        margin-left: 2% !important;
+        background-color: #0066cc !important;
+        color:black;
     }
 }
 /* Telefones em paisagem a tablet em retrato */

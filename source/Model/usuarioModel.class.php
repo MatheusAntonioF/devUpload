@@ -21,7 +21,7 @@ class UsuarioModel extends AbsConexaoBD{
         $this->userSenha = $userSenha;
           
     }
-    // Cria um novo usuario no SGD
+    // Cria um novo usuario no SGBD
     public function criaNovoUsuario(){
         $query = "SELECT userId FROM Usuarios WHERE userEmail = ?";
         
@@ -34,8 +34,7 @@ class UsuarioModel extends AbsConexaoBD{
             if ($this->qtdDeLinhas() >= 1 ){ 
                 return 0;
             }else{
-                unset($query);
-                
+                unset($query);            
             }
         }
         $query = "INSERT INTO Usuarios (userNome, userApelido, userEmail, userSenha) VALUES (?, ?, ?, ?)";
