@@ -26,7 +26,12 @@ span{
 .fundoCorDoSistema{
     background-color: #0066cc;
 }
-
+.corSecundariaDoSistema{
+    color: #6b4dcb;
+}
+.fundoSecundarioDoSistema{
+    background-color: #6b4dcb;
+}
 /* Estilização divInfo */
 div#divInfo{
     margin-bottom: 4% !important;
@@ -78,14 +83,33 @@ p#pErros{
     font-family: Arial, sans-serif ;
     
 }
+div#divInicialMenu{
+    width: 100% !important;
+}
 /* Estilização da divMenu */
 div#divMenu{
     background-image: url('../Imagens/background.jpg');
     background-size: cover;
     background-repeat: no-repeat;
+    
 }
 img#imgUsuario{
     margin-top: 15% !important;
+}
+
+button#btnMenu:hover{
+    background-color: #0066cc;
+    color: whitesmoke;
+    transition: background-color 2s, color 1s ;
+}
+div#cardTituloConteudo{
+    background-image: url('../Imagens/backgroundAux.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+/* Estilização da divConteudo */
+td{
+    color: #6b4dcb;
 }
 
 
@@ -93,8 +117,7 @@ img#imgUsuario{
 /* -------------------------------------------------------------------------------------------------------------------------------------------- */
 
 /* Desktop grande */
-@media (min-width: 1200px) {
-    
+@media (min-width: 1200px) {   
     div#divNavBar{
         margin-left: 75% !important;
         font-size: 20px !important;
@@ -115,9 +138,16 @@ img#imgUsuario{
     }
 }
 /* Telefones em paisagem a tablet em retrato */
-@media (max-width: 767px) {
-    
+@media (max-width: 767px) {   
     div#coluna2{
         margin-top: 2% !important;
+    }    
+}
+/* Dispositivos extra small (telefones em modo retrato, com menos de 576px) */
+@media (max-width: 575.98px) { 
+
+    div#cardTituloConteudo{
+        width: 104.5% !important;
+        
     }
 }

@@ -12,6 +12,7 @@ abstract class AbsConexaoBD extends \PDO {
     private $host = "localhost";
     private $usuario = "root";
     private $senha = "440731";
+    private $opcoes = array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION);
     /**
      * dbname
      * host
@@ -21,7 +22,7 @@ abstract class AbsConexaoBD extends \PDO {
     public function __construct(){
         try{     
             
-            $this->PDO = parent::__construct("mysql:host={$this->host};dbname={$this->dbName};{$this->confUTF8}",$this->usuario,$this->senha);
+            $this->PDO = parent::__construct("mysql:host={$this->host};dbname={$this->dbName};{$this->confUTF8}",$this->usuario,$this->senha, $this->opcoes);
             
             
         }catch(PDOException $ex){
@@ -55,12 +56,13 @@ abstract class AbsConexaoBD extends \PDO {
         
         // Trata as exceções do método execute
         try {
-            
+
             $executou = $this->pdoStatment->execute(array_values($arrayDeValores));
             
-            if($executou){
+            if($executou){          
                 return true;
             }else{
+
                 return false;
             }
         } catch (Exception $erro) {
@@ -73,6 +75,7 @@ abstract class AbsConexaoBD extends \PDO {
     public function leTabelaBD(){
         return $this->pdoStatment->fetch();
     }
+
     // Retorna a quantidade de linhas afetadas pela consulta no SGBD
     public function qtdDeLinhas(){  
         return $this->pdoStatment->rowCount();
@@ -89,7 +92,7 @@ abstract class AbsConexaoBD extends \PDO {
 
         // Se o diretório não existir, cria-o
         if (!is_dir($diretoriosDeLogs)) {
-             mkdir($diretoriosDeLogs);
+            mkdir($diretoriosDeLogs);
             
         }
 

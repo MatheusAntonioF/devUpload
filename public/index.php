@@ -26,4 +26,12 @@ $app->post('/cadastraPasta', function(){
     return \DevUpload\Controller\HomeController::cadastraPasta();
 });
 
+$app->post('/uploadConteudo', function(){
+    return \DevUpload\Controller\HomeController::uploadArquivo();
+});
+
+$app->post('/alteraDadosPasta', function(){
+    return \DevUpload\Controller\HomeController::alteraDadosPasta();
+});
+
 $app->run();

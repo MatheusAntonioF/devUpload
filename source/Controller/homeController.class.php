@@ -3,6 +3,7 @@
 namespace DevUpload\Controller;
 
 use DevUpload\Model\PastaModel;
+use DevUpload\Model\ConteudoModel;
 
 final class HomeController extends AbsController{
     protected static $mensagens;
@@ -37,12 +38,58 @@ final class HomeController extends AbsController{
 
             }
             /*Cadastrado com sucesso */
-            echo "VOCÊ É FODA";
+            return self::view('home');
 
         }else{
             self::adicionaMensagensDeErro("Preencha todos os campos");
             return self::view('home');
         }
+    }
+    public static function alteraDadosPasta(){
+        $novoNome = $_POST['pastNome'];
+        $fk_usePast = $_POST['fk_userPast'];
+
+        echo "PASS";
+
+        if(!empty($novoNome) && !empty($fk_userPast)){
+
+            $pastaModel = new PastaModel(null, $novoNome, $fk_userPast, null);
+
+            $pastaModel->alteraDadosPasta();
+
+            return self::view('home');
+        }else{
+            self::adicionaMensagensDeErro("Preencha todos os campos");
+            return self::view('home');
+        }
+    }
+
+    //Faz o upload do conteúdo selecionado pelo usuário
+    public static function uploadArquivo(){
+        if(isset($_FILES['arquivo'])){
+            $contNome = $_FILES['arquivo']['name'];
+            $tmpArquivo = $_FILES['arquivo']['tmp_name'];
+            $tamanhoArquivo = $_FILES['arquivo']['size'];
+
+            $fk_pastCont = $_POST['fk_pastCont'];
+
+            $fp = fopen($tmpArquivo,"rb");
+            $conteudo = fread($fp, $tamanhoArquivo);
+            $conteudo = addslashes($conteudo);
+            fclose($fp);
+
+            $conteudoModel = new ConteudoModel(null, $conteudo, $contNome, $fk_pastCont);
+            
+            $conteudoModel->uploadArquivo();
+
+            move_uploaded_file($_FILES['arquivo']['tmp_name'],'uploaded/'.$contNome);
+
+            return self::view('home');
+        }else{
+            //Arquivo não selecionado
+            self::adicionaMensagensDeErro("Por favor selecione um arquivo");
+        }
+        
     }
     public static function adicionaMensagensDeErro($msg){
         self::$mensagens[] = $msg;

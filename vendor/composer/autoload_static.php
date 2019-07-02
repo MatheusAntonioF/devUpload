@@ -33,6 +33,7 @@ class ComposerStaticInitcdf284844ea06b284050f02c7c907fea
         'DevUpload\\Controller\\HomeController' => __DIR__ . '/../..' . '/source/Controller/homeController.class.php',
         'DevUpload\\Controller\\IndexController' => __DIR__ . '/../..' . '/source/Controller/indexController.php',
         'DevUpload\\Model\\AbsConexaoBD' => __DIR__ . '/../..' . '/source/Model/absConexaoBD.class.php',
+        'DevUpload\\Model\\ConteudoModel' => __DIR__ . '/../..' . '/source/Model/conteudoModel.class.php',
         'DevUpload\\Model\\PastaModel' => __DIR__ . '/../..' . '/source/Model/ṕastaModel.class.php',
         'DevUpload\\Model\\UsuarioModel' => __DIR__ . '/../..' . '/source/Model/usuarioModel.class.php',
         'DevUpload\\Router' => __DIR__ . '/../..' . '/source/Router.class.php',

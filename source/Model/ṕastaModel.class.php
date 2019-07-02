@@ -16,6 +16,7 @@ class PastaModel extends AbsConexaoBD{
         $this->pastNome = $pastNome;
         $this->fk_userPast = $fk_userPast;
         $this->userEmail = $userEmail;
+
     }
 
     //Cadastra pasta no SGBD
@@ -57,6 +58,21 @@ class PastaModel extends AbsConexaoBD{
         }
 
     }
+    
+    public function alteraDadosPasta(){
+        $query = "UPDATE Pastas SET pastNome = ? WHERE fk_userPast = ?";
+
+        $arrayDeValores = array($this->pastNome, $this->fk_userPast);
+
+        $alterou = self::executaPs($query, $arrayDeValores);
+
+        if($alterou){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     public function retornaTodasAsPastas(){
         
         // Verifica se existe um session ativo
@@ -64,30 +80,32 @@ class PastaModel extends AbsConexaoBD{
             session_start();
         }
         $userEmail = $_SESSION['userEmail'];
-        
+
         //Retorna o id do usuario pelo email cadastrado
-        $query = "SELECT userId FROM Usuarios WHERE userEmail = '?'";
-        $arrayDeValores = array($this->userEmail);
+        $query = "SELECT userId FROM Usuarios WHERE userEmail = ?";
+        $arrayDeValores = array($userEmail);
 
         self::executaPs($query, $arrayDeValores);
 
+        //Retorna o userId logado
         $userId = $this->leTabelaBD();
-        var_dump($userId);
-        $this->fk_userPast = $userId['userId'];
-        
-        echo "<br>";
 
         $this->fk_userPast = $userId['userId'];
 
         $query = "SELECT * FROM Pastas WHERE fk_userPast = ?"; 
         $arrayDeValores = array($this->fk_userPast);
+
         self::executaPs($query, $arrayDeValores);
 
-        echo "FK";
-        var_dump($this->fk_userPast);
- 
-        $pastas  = $this->leTabelaBD();
+        $leu = $pastas  = $this->pdoStatment->fetchAll();
 
+        if($leu){
+            //Continua
+        }else{
+            return false;
+        }
+        
+        
         return $pastas;
 
     }
