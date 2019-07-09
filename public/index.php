@@ -18,10 +18,6 @@ $app->post('/loginUsuario', function(){
     return \DevUpload\Controller\IndexController::loginUsuario();
 });
 
-$app->get('/out', function(){
-    return \DevUpload\Controller\IndexController::logout();
-});
-
 $app->post('/cadastraPasta', function(){
     return \DevUpload\Controller\HomeController::cadastraPasta();
 });

@@ -108,7 +108,7 @@ final class HomeController extends AbsController{
             return self::view('home');
         }else{
             //Arquivo não selecionado
-            self::adicionaMensagensDeErro("Por favor selecione um arquivo");
+            self::adicionaMensagensDeErro("Por favor selecione um arquivo antes de submete-lo");
             return self::view('home');
         }
         
@@ -118,8 +118,21 @@ final class HomeController extends AbsController{
     public static function excluirArquivo(){
         $contId = addslashes($_POST['contId']);
 
+        $contNome = (new ConteudoModel)->retornaNomeConteudo($contId);
+        $caminho = "uploaded/";
+        $diretorio = dir($caminho);
+
+        $contNome = $contNome['contNome'];
+        
+        while($arquivo = $diretorio->read()){
+ 
+            if($arquivo === $contNome){
+                unlink($caminho.$contNome);
+            }
+        }
+        $diretorio->close();
+
         if(!empty($contId)){
-            
             (new ConteudoModel)->excluirArquivo($contId);
 
             return self::view('home');
@@ -190,9 +203,11 @@ final class HomeController extends AbsController{
             (new UsuarioModel)->alteraFotoPerfil($foto);
             self::view('home');
         }else{
+            self::adicionaMensagensDeErro("Por favor selecione uma foto antes de alterar");
             self::view('home');
         }
     }
+    //Verifica a extensão das fotos
     public function verificaTipoFoto($tipoFoto){
         $png = "png";
         $jpeg = "jpeg";

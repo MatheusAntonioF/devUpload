@@ -23,11 +23,11 @@ abstract class AbsController{
         }
         return $params['name'];
     }
-    protected final function redirect($to){
+    protected final function redirect(string $to){
         $url = (isset($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'];
         $pastas = explode('?',$_SERVER['REQUEST_URI'])[0];
 
-        header('Location:' . $url . $folders . '?r=' . $to);
+        header('Location:' . '?r=' . $to);
         exit();
     }
 }

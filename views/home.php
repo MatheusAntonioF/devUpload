@@ -137,7 +137,7 @@
                         </div>
                     </div>
                 </div>                
-                <table class="table table-hover  topEstilizado">
+                <table class="table table-hover topEstilizado">
                     <tbody>
                         <?php
                             use DevUpload\Model\PastaModel;
@@ -274,8 +274,8 @@
                     <!-- Fim Model --------------------------------------------------------------------------------------------------------------------->
                 </div>                
                 <!-- Table do conteúdo -->
-                <table class="table table-hover table table-striped  topEstilizado">
-                    <thead class="fundoSecundarioDoSistema textoBranco">
+                <table class="table table-hover table table-striped topEstilizado" id="tablePrincipalConteudo">
+                    <thead class="fundoSecundarioDoSistema textoBranco" id="theadConteudo">
                             <tr>
                                 <th scope="col">Nome</th>
                                 <th scope="col" class="elementoNaDireita" id="thConteudo">Opções</th>
@@ -346,22 +346,6 @@
         $("#contId").val(contId);
     
     }
-    
-    // //Desabilita botão se o arquivo não for selecionado
-    // function verificaMostraBotao(){
-    //     $('input[type=file]').each(function(index){
-    //         if ($('input[type=file]').eq(index).val() != ""){
-    //             $('#enviaArquivo').removeAttr('disabled');
-    //         }else{
-    //             alert("PASSEI");
-    //         }
-    //     }
-    // )};
-
-    // $('input[type=file]').on("change", function(){
-    //     verificaMostraBotao();
-    //     // alert("PASSEI");
-    // });
 
     //Função do ajax para alimentar a tabela de conteúdo
     $('.btnMenu').on("click",function(){

@@ -48,12 +48,6 @@ class ConteudoModel extends AbsConexaoBD{
 
         self::executaPs($query, $arrayDeValores);
 
-        $contNome = $this->leTabelaBD();
-        
-        $diretorioArquivo = $_SERVER['DOCUMENT_ROOT'] . "/devUpload/public/uploaded/";
-
-        rmdir($diretorioArquivo.$contNome['contNome']);
-
         $query = "DELETE FROM Conteudos WHERE contId = ?";
 
         $arrayDeValores = array($contId);
@@ -88,5 +82,21 @@ class ConteudoModel extends AbsConexaoBD{
 
         return $conteudos;
         
+    }
+    public function retornaNomeConteudo($contId){
+        $query = "SELECT contNome FROM Conteudos WHERE contId = ?";
+
+        $arrayDeValores = array($contId);
+
+        $executou = self::executaPs($query, $arrayDeValores);
+
+        if($executou){
+            //Continua            
+        }else{
+            return false;
+        }
+        $contNome = $this->leTabelaBD();
+
+        return $contNome;
     }
 }

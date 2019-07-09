@@ -125,6 +125,7 @@ td{
 
 
 
+
 /* -------------------------------------------------------------------------------------------------------------------------------------------- */
 
 /* Desktop grande */
@@ -152,11 +153,15 @@ td{
 @media (max-width: 767px) {   
     div#coluna2{
         margin-top: 2% !important;
-    }    
+    }  
+    table#tablePrincipalConteudo{
+        position: absolute !important;
+        width: 95.5% !important;
+    }  
 }
 /* Dispositivos extra small (telefones em modo retrato, com menos de 576px) */
 @media (max-width: 575.98px) { 
-
+    
     div#cardTituloConteudo{
         width: 104.5% !important;
         
