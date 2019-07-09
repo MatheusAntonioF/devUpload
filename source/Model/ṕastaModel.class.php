@@ -58,20 +58,35 @@ class PastaModel extends AbsConexaoBD{
         }
 
     }
+
+    public function excluiPasta($pastId){
+        $query = "DELETE FROM Pastas WHERE pastId = ?";
+
+        $arrayDeValores = array($pastId);
+
+        $excluido = self::executaPs($query, $arrayDeValores);
+
+        if($excluido){
+            return true;
+        }else{
+            return false;
+        }
+    }
     
     public function alteraDadosPasta(){
-        $query = "UPDATE Pastas SET pastNome = ? WHERE fk_userPast = ?";
+        $query = "UPDATE Pastas SET pastNome = ? WHERE pastId = ?";
 
-        $arrayDeValores = array($this->pastNome, $this->fk_userPast);
+        $arrayDeValores = array($this->pastNome, $this->pastId);
 
         $alterou = self::executaPs($query, $arrayDeValores);
-
+        
         if($alterou){
             return true;
         }else{
             return false;
         }
     }
+
 
     public function retornaTodasAsPastas(){
         

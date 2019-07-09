@@ -4,6 +4,7 @@ namespace DevUpload\Controller;
 
 use DevUpload\Model\PastaModel;
 use DevUpload\Model\ConteudoModel;
+use DevUpload\Model\UsuarioModel;
 
 final class HomeController extends AbsController{
     protected static $mensagens;
@@ -44,16 +45,34 @@ final class HomeController extends AbsController{
             self::adicionaMensagensDeErro("Preencha todos os campos");
             return self::view('home');
         }
+    }   
+
+    //Método para excluir pastas no SGBD
+    public function excluiPasta(){
+        $pastId = $_POST['pastId'];
+
+        $pastId = (int) $pastId;
+
+        if(!empty($pastId)){
+            $excluido = (new PastaModel)->excluiPasta($pastId);
+
+            if($excluido){
+                return self::view('home');
+            }else{
+                self::adicionaMensagensDeErro("Erro ao excluir pasta! Por favor, contate o responsável pelo sistema");
+            }
+        }
     }
+
+    //Altera os dados da pasta
     public static function alteraDadosPasta(){
-        $novoNome = $_POST['pastNome'];
-        $fk_usePast = $_POST['fk_userPast'];
+        $novoNome = addslashes($_POST['pastNome']);
+        $pastId = addslashes($_POST['pastId']);
+        $pastId = (int) $pastId;
 
-        echo "PASS";
+        if(!empty($novoNome) && !empty($pastId)){
 
-        if(!empty($novoNome) && !empty($fk_userPast)){
-
-            $pastaModel = new PastaModel(null, $novoNome, $fk_userPast, null);
+            $pastaModel = new PastaModel($pastId, $novoNome, null, null);
 
             $pastaModel->alteraDadosPasta();
 
@@ -67,30 +86,130 @@ final class HomeController extends AbsController{
     //Faz o upload do conteúdo selecionado pelo usuário
     public static function uploadArquivo(){
         if(isset($_FILES['arquivo'])){
-            $contNome = $_FILES['arquivo']['name'];
+            $contNome = $_FILES['arquivo']['name'];  
             $tmpArquivo = $_FILES['arquivo']['tmp_name'];
             $tamanhoArquivo = $_FILES['arquivo']['size'];
 
+            $caminhoCont = "uploaded/".$contNome;
+
             $fk_pastCont = $_POST['fk_pastCont'];
 
+            //Abre o arquivo enviado / r->leitura do arquivo e b-> força a abertura em modo binário
             $fp = fopen($tmpArquivo,"rb");
+            //Lê  os dados de um arquivo externo
             $conteudo = fread($fp, $tamanhoArquivo);
             $conteudo = addslashes($conteudo);
             fclose($fp);
 
-            $conteudoModel = new ConteudoModel(null, $conteudo, $contNome, $fk_pastCont);
-            
+            $conteudoModel = new ConteudoModel(null, $conteudo, $contNome, $fk_pastCont, $caminhoCont);          
             $conteudoModel->uploadArquivo();
 
             move_uploaded_file($_FILES['arquivo']['tmp_name'],'uploaded/'.$contNome);
-
             return self::view('home');
         }else{
             //Arquivo não selecionado
             self::adicionaMensagensDeErro("Por favor selecione um arquivo");
+            return self::view('home');
         }
         
     }
+
+    //Exclui arquivo do SGBD
+    public static function excluirArquivo(){
+        $contId = addslashes($_POST['contId']);
+
+        if(!empty($contId)){
+            
+            (new ConteudoModel)->excluirArquivo($contId);
+
+            return self::view('home');
+        }else{
+            self::adicionaMensagensDeErro("Erro ao excluir arquivo! Por favor, contate o responsável pelo sistema");
+
+            return self::view('home');
+        }
+    }
+
+    //Altera a foto de perfil do usuário
+    public function alteraFotoPerfil(){
+        $query = "SELECT userFoto FROM Usuarios WHERE userEmail = ?";
+
+        if (session_status() !== PHP_SESSION_ACTIVE) {
+            session_start();
+        }
+        $userEmail = $_SESSION['userEmail'];
+
+        if(isset($_FILES['fotoPerfil'])){
+            $nomeFoto = $_FILES['fotoPerfil']['name'];
+            $nomeFoto = $userEmail."-"."fotoPerfil";
+            $tmpFoto = $_FILES['fotoPerfil']['tmp_name'];
+            $tamanhoFoto = $_FILES['fotoPerfil']['size'];
+            $tipoFoto = $_FILES['fotoPerfil']['type'];
+            
+            $verificou = self::verificaTipoFoto($tipoFoto);
+            
+            if($verificou){
+                //Continua
+            }else{
+                return false;
+            }
+
+            $fp = fopen($tmpFoto,"rb");
+            $foto = fread($fp, $tamanhoFoto);
+            $foto = addslashes($foto);
+            fclose($fp);
+
+            $caminho = "perfil/";
+            $diretorio = dir($caminho);
+            
+            $arquivo = $diretorio->read();
+
+            while($arquivo = $diretorio->read()){
+                
+                $encontrado = strpos($arquivo, $userEmail);
+
+                if($encontrado === false){
+
+                }else{
+                    unlink($caminho.$arquivo);
+                    $apagou = (new UsuarioModel)->excluiFotoUsuario();
+
+                    if($apagou){
+
+                    }else{
+
+                    }
+                }
+            }
+            $diretorio->close();
+
+            //self::redimensionarFotoPerfil($caminho, $nomeFoto);
+
+            move_uploaded_file($_FILES['fotoPerfil']['tmp_name'],'perfil/'.$nomeFoto);
+
+            (new UsuarioModel)->alteraFotoPerfil($foto);
+            self::view('home');
+        }else{
+            self::view('home');
+        }
+    }
+    public function verificaTipoFoto($tipoFoto){
+        $png = "png";
+        $jpeg = "jpeg";
+        $jpg = "jpg";
+
+        if(strpos($tipoFoto, $png)){
+            return true;
+
+        }elseif(strpos($tipoFoto, $jpeg)){
+            return true;
+
+        }elseif(strpos($tipoFoto, $jpg)){
+            return true;
+        }
+        return false;
+    }
+
     public static function adicionaMensagensDeErro($msg){
         self::$mensagens[] = $msg;
     }

@@ -34,4 +34,16 @@ $app->post('/alteraDadosPasta', function(){
     return \DevUpload\Controller\HomeController::alteraDadosPasta();
 });
 
+$app->post('/excluiPasta', function(){
+    return \DevUpload\Controller\HomeController::excluiPasta();
+});
+
+$app->post('/excluirArquivo', function(){
+    return \DevUpload\Controller\HomeController::excluirArquivo();
+});
+
+$app->post('/alteraFotoPerfil', function(){
+    return \DevUpload\Controller\HomeController::alteraFotoPerfil();
+});
+
 $app->run();

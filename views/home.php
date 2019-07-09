@@ -28,8 +28,65 @@
     </head>
     <body>
         <div class="row" id="divInicialMenu">
-            <div class="col-sm-3" id="divMenu">
-                <img src="Imagens/usuario.png" alt="usuario" id="imgUsuario" class="img-responsive rounded mx-auto d-block">
+            <div class="col-sm-3 elementoNoCentro position-relative" id="divMenu">
+                <button class="btn" data-toggle="modal" data-target="#modalFotoPerfil">
+                <div class="w-75 p-3 h-75 d-inline-block">
+                    <?php 
+                        if (session_status() !== PHP_SESSION_ACTIVE) {
+                            session_start();
+                        }
+                        $userEmail = $_SESSION['userEmail'];
+
+                        $caminho = "perfil/";
+                        $diretorio = dir($caminho);
+
+                        while($arquivo = $diretorio->read()){
+                            $encontrado = strpos($arquivo, $userEmail);
+                            
+                            if($encontrado === false){
+                                
+                            }else{
+                                $fotoDePerfil = strval($arquivo);
+                                echo "<img src='perfil/{$fotoDePerfil}' alt='foto perfil do usuário' id='imgUsuario' class='img-responsive rounded-circle mx-auto d-block'>";                           
+                            }
+                        }
+                        $diretorio->close();
+
+                        if(is_null($fotoDePerfil)){
+                            echo "<img src='Imagens/usuario.png' alt='foto perfil do usuário' id='imgUsuario' class='img-responsive rounded-circle mx-auto d-block'>";
+                        }else{
+                            
+                        }     
+                    ?>
+                </div>    
+                </button>
+                <!-- Modal Foto de perfil -->
+                <div class="modal" id="modalFotoPerfil">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <!-- Modal Header -->
+                            <div class="modal-header textoBranco fundoCorDoSistema ">
+                                <h1 class="modal-title ">Nova Foto de perfil</h1>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <!-- Modal body -->
+                            <div class="modal-body"> 
+                                <br>                       
+                                <form action="?r=/alteraFotoPerfil" method="post" enctype="multipart/form-data" class="elementoNaEsquerda">
+                                    <label for="arquivo">Escolha a foto</label>
+                                    <input type="file" class="form-control-file" name="fotoPerfil" id="arquivo">
+                                    <button type="submit" class="btn btn-success topEstilizado" id="enviaArquivo" disabled>Enviar</button>
+
+                                </form>
+                            </div>
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>                
+
                 <br>
                 
                 <p id="pUserNome" class="corDoSistema elementoNoCentro h1">
@@ -44,7 +101,6 @@
                         $usuarioModel = (new UsuarioModel)->retornaUsuario($userEmail);
                         
                         $userNome = $usuarioModel->getUserNome();
-
                         
                         echo $userNome;
                     ?>                    
@@ -54,7 +110,7 @@
                         NOVO
                     </button>
                 </div>
-                <!-- Modal Cadastro -->
+                <!-- Modal Cadastro de Pasta -->
                 <div class="modal" id="modalCadastroArquivos">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -69,7 +125,7 @@
                                 <form action="?r=/cadastraPasta" method="post">
                                     <!-- Cadastro Nome -->
                                     <label for="inputPastNome" class="corDoSistema">Nome</label>
-                                    <input type="text" name="pastNome" id="inputPastNome" class="form-control" placeholder="Escolha um nome">                         
+                                    <input type="text" name="pastNome" id="inputPastNome" class="form-control" placeholder="Escolha um nome" value="">                         
                                     <button type="submit" id="btnCadastraPasta" class="btn btn-primary topEstilizado" >Enviar</button>
 
                                 </form>
@@ -100,8 +156,8 @@
                                     <button type="button" class="btn btn-outline-primary btnMenu" id="btnMenu"> <?php echo $pasta['pastNome'] ?> </button>
                                 </td>
                                 <td class="elementoNaDireita">
-                                    <button class="btn btn-outline" >
-                                        <span class="glyphicon glyphicon-trash"></span>
+                                    <button class="btn btn-outline btnExcluir" >
+                                        <span class="glyphicon glyphicon-trash " data-toggle="modal" data-target="#modalExcluiPasta"></span>
                                     </button>
                                     
                                     <button class="btn btn-outline">
@@ -113,6 +169,37 @@
 
                     </tbody>
                 </table>
+                <!-- Modal exclui pasta ------------------------------------------------------------------------------------------------->
+                <div class="modal" id="modalExcluiPasta">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <!-- Modal Header -->
+                                <div class="modal-header textoBranco fundoSecundarioDoSistema">
+                                    <h1 class="modal-title">Excluir pasta</h1>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                                <!-- Modal body -->
+                                <div class="modal-body elementoNoCentro">                     
+                                    <form action="?r=/excluiPasta" method="post" >
+
+                                        <input type="hidden" name="pastId" id="pastId" value="">  
+                                        <h2>Tem certeza que deseja fazer isso?</h2>
+                                        <small>Essa operação é irreversivel.</small>
+                                        <br>
+                                        <br>
+                                        <button type="submit" id="btnCadastraPasta" class="btn btn-success " >Excluir</button>
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+
+                                    </form>
+                                </div>
+                                <!-- Modal footer -->
+                                <div class="modal-footer">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <!-- Fim Model --------------------------------------------------------------------------------------------------------------------->
+
                 <!-- Modal Altera dados da pasta ------------------------------------------------------------------------------------------------->
                 <div class="modal" id="modalAlteraDadosPasta">
                         <div class="modal-dialog">
@@ -126,7 +213,7 @@
                                 <div class="modal-body"> 
                                     <br>                       
                                     <form action="?r=/alteraDadosPasta" method="post" >
-                                        <input type="hidden" name="fk_userPast" id="pastId" value="">
+                                        <input type="hidden" name="pastId" id="pastIdAltera" value="">
                                         <!-- Altera Nome -->
                                         <label for="inputPastNome" class="corDoSistema">Novo nome</label>
                                         <input type="text" name="pastNome" id="inputPastNome" class="form-control" placeholder="Escolha um nome">                         
@@ -135,7 +222,7 @@
                                 </div>
                                 <!-- Modal footer -->
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
                                 </div>
                             </div>
                         </div>
@@ -143,7 +230,7 @@
                 <!-- Fim Model --------------------------------------------------------------------------------------------------------------------->
 
             </div>
-            <div class="col-sm-9" id="divConteudo">
+            <div class="col-sm-9 position-relative" id="divConteudo">
                 <div class="card" id="cardTituloConteudo">
                     <div class="card-header elementoNoCentro">
                         <h2 class="corSecundariaDoSistema">
@@ -151,13 +238,14 @@
                         </h2>
                     </div>
                     <div class="card-body elementoNoCentro">
-                         <button class="btn btn-outline-primary btn-lg" data-toggle="modal" data-target="#modalUploadArquivos">
-                             Novo
+                        <p class="textoBranco">Selecione a pasta que deseja inserir o arquivo anteriormente!</p>        
+                        <button class="btn btn-outline-primary btn-lg" data-toggle="modal" data-target="#modalUploadArquivos">
+                            Novo arquivo
                             <span class="glyphicon glyphicon-upload "></span>
-                         </button>       
+                        </button>       
 
                     </div>
-                    <!-- Modal Cadastro ----------------------------------------------------------------------------------------------------------->
+                    <!-- Modal Upload de Arquivo ----------------------------------------------------------------------------------------------------------->
                     <div class="modal" id="modalUploadArquivos">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -173,18 +261,18 @@
                                         <input type="hidden" name="fk_pastCont" id="fk_pastCont" value="">
                                         <label for="arquivo">Escolha o arquivo</label>
                                         <input type="file" class="form-control-file" name="arquivo" id="arquivo">
-                                        <button type="submit" class="btn btn-success topEstilizado" id="enviaArquivo" disabled>Enviar</button>
+                                        <button type="submit" class="btn btn-success topEstilizado" id="enviaArquivo">Enviar</button>
                                     </form>
                                 </div>
                                 <!-- Modal footer -->
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
                                 </div>
                             </div>
                         </div>
                     </div>  
                     <!-- Fim Model --------------------------------------------------------------------------------------------------------------------->
-                </div>
+                </div>                
                 <!-- Table do conteúdo -->
                 <table class="table table-hover table table-striped  topEstilizado">
                     <thead class="fundoSecundarioDoSistema textoBranco">
@@ -194,11 +282,42 @@
                             </tr>
                     </thead>
                     <tbody id="tableConteudo">
-
+                                
                     </tbody>
                 </table>
+                <!-- Modal Exclui Arquivo ----------------------------------------------------------------------------------------------------------->
+                <div class="modal" id="modalExcluiArquivo">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <!-- Modal Header -->
+                            <div class="modal-header textoBranco fundoSecundarioDoSistema">
+                                <h1 class="modal-title">Excluir Conteúdo</h1>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <!-- Modal body -->
+                            <div class="modal-body elementoNoCentro"> 
+                                <br>                       
+                                <form action="?r=/excluirArquivo" method="post">
+                                    <input type="hidden" name="contId" id="contId" value="">
+                                    <h2>Tem certeza que deseja fazer isso?</h2>
+                                    <small>Essa operação é irreversivel.</small>
+                                    <br>
+                                    <br>
+                                    <button type="submit" id="btnCadastraPasta" class="btn btn-success " >Excluir</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                                </form>
+                            </div>
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>  
+                <!-- Fim Model --------------------------------------------------------------------------------------------------------------------->    
             </div>
         </div>
+        
 
 
         <!-- Optional JavaScript -->
@@ -209,25 +328,40 @@
     </body>
 </html>
 <script>
+
     $('.btnAltera').on("click",function(){
+        var pastId = $('td:first', $(this).parents('tr')).text(); 
+        document.getElementById('pastIdAltera').value = pastId;
+    });
+
+    $('.btnExcluir').on("click",function(){
         var pastId = $('td:first', $(this).parents('tr')).text(); 
         document.getElementById('pastId').value = pastId;
     });
+    
+    function excluiArquivo(e){   
+        var contId = $('td:first', $(e).parents('tr')).text().trim(); 
+        console.log(contId);
+        // document.getElementById('contId').value = contId;
+        $("#contId").val(contId);
+    
+    }
+    
+    // //Desabilita botão se o arquivo não for selecionado
+    // function verificaMostraBotao(){
+    //     $('input[type=file]').each(function(index){
+    //         if ($('input[type=file]').eq(index).val() != ""){
+    //             $('#enviaArquivo').removeAttr('disabled');
+    //         }else{
+    //             alert("PASSEI");
+    //         }
+    //     }
+    // )};
 
-    //Desabilita botão se o arquivo não for selecionado
-    function verificaMostraBotao(){
-        $('input[type=file]').each(function(index){
-            if ($('input[type=file]').eq(index).val() != ""){
-                $('#enviaArquivo').removeAttr('disabled');
-            }else{
-
-            }
-        }
-    )};
-
-    $('input[type=file]').on("change", function(){
-        verificaMostraBotao();
-    });
+    // $('input[type=file]').on("change", function(){
+    //     verificaMostraBotao();
+    //     // alert("PASSEI");
+    // });
 
     //Função do ajax para alimentar a tabela de conteúdo
     $('.btnMenu').on("click",function(){

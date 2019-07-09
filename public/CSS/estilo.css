@@ -2,6 +2,17 @@ body{
     height: 100% !important;
     width: 100% !important;
 }
+a{
+    text-decoration: none !important;
+    font-size: 16px;
+    color: #6b4dcb !important;
+}
+a:hover{
+    font-size: 18px;
+}
+a:active{
+    color: gray;
+}
 /* Estilizações a parte */
 span{
     color:  #0066cc;
@@ -22,7 +33,6 @@ span{
 .corDoSistema{
     color: #0066cc !important;
 }
-
 .fundoCorDoSistema{
     background-color: #0066cc;
 }
@@ -32,6 +42,7 @@ span{
 .fundoSecundarioDoSistema{
     background-color: #6b4dcb;
 }
+
 /* Estilização divInfo */
 div#divInfo{
     margin-bottom: 4% !important;

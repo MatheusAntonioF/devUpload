@@ -105,6 +105,38 @@ class UsuarioModel extends AbsConexaoBD{
 
     }
 
+    //Altera a foto do usuário no SGBD
+    public function alteraFotoPerfil($foto){
+
+        $apagou = $this->excluiFotoUsuario();
+        
+        if($apagou){
+            $query = "UPDATE Usuarios SET userFoto = ?";
+
+            $arrayDeValores = array($foto);
+
+            self::executaPs($query, $arrayDeValores);
+        }else{
+            return false;
+        }
+    }
+
+    //Exclui a foto do usuário no SGBD
+    public function excluiFotoUsuario(){
+        if (session_status() !== PHP_SESSION_ACTIVE) {
+            session_start();
+        }
+        $userEmail = $_SESSION['userEmail'];
+
+        $query = "UPDATE Usuarios SET userFoto = ? WHERE userEmail = ?";
+
+        $arrayDeValores = array(null, $userEmail);
+
+        $apagou = self::executaPs($query, $arrayDeValores);
+
+        return $apagou;
+    }
+
 
     /*GETTERS AND SETTERS */
     function getUserId() {
