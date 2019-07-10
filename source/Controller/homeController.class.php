@@ -18,10 +18,8 @@ final class HomeController extends AbsController{
         //Recebe dado da pasta pelo método POST
         $pastNome = addslashes($_POST['pastNome']);
 
-        // Verifica se existe um session ativo
-        if (session_status() !== PHP_SESSION_ACTIVE) {
-            session_start();
-        }
+        self::verificaSession();
+
         $userEmail = $_SESSION['userEmail'];
 
         //Verifica se o campo foi preenchido
@@ -32,11 +30,8 @@ final class HomeController extends AbsController{
             $inserido = $pastaModel->cadastraNovaPasta();
 
             /*Se retornar 0 -> Email já cadastrado */
-            if($inserido == 0){
-                
-                self::adicionaMensagensDeErro("Pasta já existente");
-                
-
+            if($inserido == 0){        
+                self::adicionaMensagensDeErro("Pasta já existente");     
             }
             /*Cadastrado com sucesso */
             return self::view('home');
@@ -66,8 +61,10 @@ final class HomeController extends AbsController{
 
     //Altera os dados da pasta
     public static function alteraDadosPasta(){
+        //Recebe dados pelo método $_POST
         $novoNome = addslashes($_POST['pastNome']);
         $pastId = addslashes($_POST['pastId']);
+        
         $pastId = (int) $pastId;
 
         if(!empty($novoNome) && !empty($pastId)){
@@ -85,7 +82,9 @@ final class HomeController extends AbsController{
 
     //Faz o upload do conteúdo selecionado pelo usuário
     public static function uploadArquivo(){
+        // Verifica se o arquivo foi submetido
         if(isset($_FILES['arquivo'])){
+            // Recebe os dados pela variável global $_FILES
             $contNome = $_FILES['arquivo']['name'];  
             $tmpArquivo = $_FILES['arquivo']['tmp_name'];
             $tamanhoArquivo = $_FILES['arquivo']['size'];
@@ -110,22 +109,23 @@ final class HomeController extends AbsController{
             //Arquivo não selecionado
             self::adicionaMensagensDeErro("Por favor selecione um arquivo antes de submete-lo");
             return self::view('home');
-        }
-        
+        } 
     }
 
     //Exclui arquivo do SGBD
     public static function excluirArquivo(){
+        //Recebe os dados
         $contId = addslashes($_POST['contId']);
 
         $contNome = (new ConteudoModel)->retornaNomeConteudo($contId);
         $caminho = "uploaded/";
+        // Retorna uma instância de dir
         $diretorio = dir($caminho);
 
         $contNome = $contNome['contNome'];
         
         while($arquivo = $diretorio->read()){
- 
+            //Verifica se o nome do arquivo na pasta é igual a $contNome
             if($arquivo === $contNome){
                 unlink($caminho.$contNome);
             }
@@ -147,9 +147,7 @@ final class HomeController extends AbsController{
     public function alteraFotoPerfil(){
         $query = "SELECT userFoto FROM Usuarios WHERE userEmail = ?";
 
-        if (session_status() !== PHP_SESSION_ACTIVE) {
-            session_start();
-        }
+        self::verificaSession();
         $userEmail = $_SESSION['userEmail'];
 
         if(isset($_FILES['fotoPerfil'])){
@@ -178,15 +176,13 @@ final class HomeController extends AbsController{
             $arquivo = $diretorio->read();
 
             while($arquivo = $diretorio->read()){
-                
+                //Verifica se dentro da String arquivo existe $userEmail ->return boolean
                 $encontrado = strpos($arquivo, $userEmail);
-
                 if($encontrado === false){
-
+                    // Continua
                 }else{
                     unlink($caminho.$arquivo);
                     $apagou = (new UsuarioModel)->excluiFotoUsuario();
-
                     if($apagou){
 
                     }else{
@@ -195,8 +191,6 @@ final class HomeController extends AbsController{
                 }
             }
             $diretorio->close();
-
-            //self::redimensionarFotoPerfil($caminho, $nomeFoto);
 
             move_uploaded_file($_FILES['fotoPerfil']['tmp_name'],'perfil/'.$nomeFoto);
 
@@ -207,6 +201,7 @@ final class HomeController extends AbsController{
             self::view('home');
         }
     }
+
     //Verifica a extensão das fotos
     public function verificaTipoFoto($tipoFoto){
         $png = "png";
@@ -225,6 +220,7 @@ final class HomeController extends AbsController{
         return false;
     }
 
+    //Adiciona mensagens de erro no array
     public static function adicionaMensagensDeErro($msg){
         self::$mensagens[] = $msg;
     }

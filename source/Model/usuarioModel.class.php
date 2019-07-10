@@ -21,6 +21,7 @@ class UsuarioModel extends AbsConexaoBD{
         $this->userSenha = $userSenha;
           
     }
+
     // Cria um novo usuario no SGBD
     public function criaNovoUsuario(){
         $query = "SELECT userId FROM Usuarios WHERE userEmail = ?";
@@ -48,13 +49,11 @@ class UsuarioModel extends AbsConexaoBD{
             return true;
         }else{ 
             return false;
-        }            
-        
-
+        }               
     } 
+
     // Verifica e valida os dados de login do usuário 
     public function loginUsuario(){
-        
         $query = "SELECT userEmail, userSenha FROM Usuarios WHERE userEmail = ? AND userSenha = ?";
 
         $arrayDeValores = array($this->getUserEmail(), $this->getUserSenha());
@@ -102,12 +101,10 @@ class UsuarioModel extends AbsConexaoBD{
         }
         
         return new UsuarioModel($objetoBD['userId'],$objetoBD['userNome'],$objetoBD['userApelido'],$objetoBD['userEmail'], $objetoBD['userSenha']);
-
     }
 
     //Altera a foto do usuário no SGBD
     public function alteraFotoPerfil($foto){
-
         $apagou = $this->excluiFotoUsuario();
         
         if($apagou){

@@ -59,6 +59,7 @@ class PastaModel extends AbsConexaoBD{
 
     }
 
+    //Exclui pasta do SGBD
     public function excluiPasta($pastId){
         $query = "DELETE FROM Pastas WHERE pastId = ?";
 
@@ -73,6 +74,7 @@ class PastaModel extends AbsConexaoBD{
         }
     }
     
+    //Altera dados da pasta
     public function alteraDadosPasta(){
         $query = "UPDATE Pastas SET pastNome = ? WHERE pastId = ?";
 
@@ -87,9 +89,8 @@ class PastaModel extends AbsConexaoBD{
         }
     }
 
-
+    //Retorna todas as pastas armazenadas no SGBD
     public function retornaTodasAsPastas(){
-        
         // Verifica se existe um session ativo
         if (session_status() !== PHP_SESSION_ACTIVE) {
             session_start();
@@ -112,19 +113,18 @@ class PastaModel extends AbsConexaoBD{
 
         self::executaPs($query, $arrayDeValores);
 
-        $leu = $pastas  = $this->pdoStatment->fetchAll();
+        $leu = $pastas = $this->pdoStatment->fetchAll();
 
         if($leu){
             //Continua
         }else{
             return false;
         }
-        
-        
-        return $pastas;
 
+        return $pastas;
     }
 
+    /* GETTERS AND SETTERS */
     public function getPastId(){
         return $this->pastId;
     }
@@ -132,6 +132,7 @@ class PastaModel extends AbsConexaoBD{
     public function getPastNome(){
         return $this->pastNome;
     }
+
     public function setPastNome($pastNome){
         return $this->pastNome = $pastNome;
     }

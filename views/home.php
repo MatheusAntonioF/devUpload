@@ -1,5 +1,7 @@
 <?php
+    // Importações das classes PHP essenciais
     use \DevUpload\Model\UsuarioModel;
+    use DevUpload\Model\PastaModel;
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -16,9 +18,7 @@
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        
-       
-
+           
         <!-- Arquivos para exibir/ocultar senhas-->
         <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>   
@@ -31,6 +31,7 @@
             <div class="col-sm-3 elementoNoCentro position-relative" id="divMenu">
                 <button class="btn" data-toggle="modal" data-target="#modalFotoPerfil">
                 <div class="w-75 p-3 h-75 d-inline-block">
+
                     <?php 
                         if (session_status() !== PHP_SESSION_ACTIVE) {
                             session_start();
@@ -54,10 +55,9 @@
 
                         if(is_null($fotoDePerfil)){
                             echo "<img src='Imagens/usuario.png' alt='foto perfil do usuário' id='imgUsuario' class='img-responsive rounded-circle mx-auto d-block'>";
-                        }else{
-                            
-                        }     
+                        }   
                     ?>
+
                 </div>    
                 </button>
                 <!-- Modal Foto de perfil -->
@@ -95,11 +95,9 @@
                         if (session_status() !== PHP_SESSION_ACTIVE) {
                             session_start();
                         }
-
                         $userEmail = $_SESSION['userEmail'];
                         
                         $usuarioModel = (new UsuarioModel)->retornaUsuario($userEmail);
-                        
                         $userNome = $usuarioModel->getUserNome();
                         
                         echo $userNome;
@@ -140,8 +138,6 @@
                 <table class="table table-hover topEstilizado">
                     <tbody>
                         <?php
-                            use DevUpload\Model\PastaModel;
-
                             $pasta = new PastaModel();
                             $pastas = $pasta->retornaTodasAsPastas();
                            
@@ -230,7 +226,7 @@
                 <!-- Fim Model --------------------------------------------------------------------------------------------------------------------->
 
             </div>
-            <div class="col-sm-9 position-relative" id="divConteudo">
+            <div class="col-sm-9 position-relativ elementoNoCentroe" id="divConteudo">
                 <div class="card" id="cardTituloConteudo">
                     <div class="card-header elementoNoCentro">
                         <h2 class="corSecundariaDoSistema">
@@ -244,6 +240,33 @@
                             <span class="glyphicon glyphicon-upload "></span>
                         </button>       
 
+                    </div>
+                    <div class="row">
+                        <?php
+                            $mensagensExists = \DevUpload\Controller\HomeController::$mensagens;
+
+                            if(!is_null($mensagensExists)):
+                        ?>
+                        <div class="col-sm-4"></div>
+                        <div id="divErrosHome" class="d-flex justify-content-center col-sm-4 elementoNoCentro">
+                                <?php
+                                    $mensagens = \DevUpload\Controller\HomeController::$mensagens;
+                                    foreach($mensagens as $mensagem):
+                                ?>
+                                <p id="pErros" class="elementoNoCentro h4">
+                                    <strong>
+                                        Atenção:
+                                        <?php echo $mensagem; ?>
+                                    </strong>
+                                </p>
+                                <?php endforeach ?>
+
+                        </div>
+                        <div class="col-sm-4"></div>
+
+                        <?php 
+                            endif;
+                        ?>
                     </div>
                     <!-- Modal Upload de Arquivo ----------------------------------------------------------------------------------------------------------->
                     <div class="modal" id="modalUploadArquivos">
@@ -272,7 +295,9 @@
                         </div>
                     </div>  
                     <!-- Fim Model --------------------------------------------------------------------------------------------------------------------->
-                </div>                
+                </div>        
+
+
                 <!-- Table do conteúdo -->
                 <table class="table table-hover table table-striped topEstilizado" id="tablePrincipalConteudo">
                     <thead class="fundoSecundarioDoSistema textoBranco" id="theadConteudo">
@@ -317,8 +342,6 @@
                 <!-- Fim Model --------------------------------------------------------------------------------------------------------------------->    
             </div>
         </div>
-        
-
 
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -328,23 +351,22 @@
     </body>
 </html>
 <script>
-
+    //Busca o pastId do button para alterar dados da pasta
     $('.btnAltera').on("click",function(){
         var pastId = $('td:first', $(this).parents('tr')).text(); 
         document.getElementById('pastIdAltera').value = pastId;
     });
 
+    //Busca pastId do button para excluir pasta
     $('.btnExcluir').on("click",function(){
         var pastId = $('td:first', $(this).parents('tr')).text(); 
         document.getElementById('pastId').value = pastId;
     });
-    
+
+    //Função para buscar o contId
     function excluiArquivo(e){   
         var contId = $('td:first', $(e).parents('tr')).text().trim(); 
-        console.log(contId);
-        // document.getElementById('contId').value = contId;
         $("#contId").val(contId);
-    
     }
 
     //Função do ajax para alimentar a tabela de conteúdo
@@ -369,11 +391,6 @@
             ,error: function(data){
                 alert("Erro ao carregar arquivos! Por favor, contate o responsável pelo sistema");
             }
-
         })
-
     });
-
-
-
 </script>

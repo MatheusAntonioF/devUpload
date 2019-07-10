@@ -1,3 +1,4 @@
+/* Estilizações independentes */
 body{
     height: 100% !important;
     width: 100% !important;
@@ -13,10 +14,12 @@ a:hover{
 a:active{
     color: gray;
 }
-/* Estilizações a parte */
 span{
     color:  #0066cc;
 }
+td{
+    color: #6b4dcb;
+    }
 /* Classes de estlização */
 .textoBranco{
     color: whitesmoke;
@@ -43,7 +46,7 @@ span{
     background-color: #6b4dcb;
 }
 
-/* Estilização divInfo */
+/* Estilização divInfo ---------------------------------------------------------------------------------------------------------------------------*/
 div#divInfo{
     margin-bottom: 4% !important;
 }
@@ -57,7 +60,7 @@ div#coluna2{
     border-radius: 15px;
     font-family: Helvetica, sans-serif ;
 }
-/* Estilização navBarInicial */
+/* Estilização navBarInicial ---------------------------------------------------------------------------------------------------------------------------*/
 nav#navBarInicial{
     background-color: rgba(0, 0, 0, 0.5);  
 }
@@ -77,27 +80,26 @@ button#btnCadastro:hover{
     transition: text-shadow 3s;
 
 }
-/* Estilização da divInicial */
+/* Estilização da divInicial ---------------------------------------------------------------------------------------------------------------------------*/
 div#divInicial{
     background-image: url('../Imagens/background.jpg');
     background-size: cover;
     background-repeat: no-repeat;
 }
-/* Estilização da divErros */
+/* Estilização da divErros ---------------------------------------------------------------------------------------------------------------------------*/
 div#divErros{
     border-radius: 20px;
-    background-color: rgba(0, 0, 0, 0.5);
-    
+    background-color: rgba(0, 0, 0, 0.5);    
 }
 p#pErros{
     color:  #ff1a1a;
     font-family: Arial, sans-serif ;
-    
+    text-shadow: 1px 1px 7px #ff1a1a   
 }
 div#divInicialMenu{
     width: 100% !important;
 }
-/* Estilização da divMenu */
+/* Estilização da divMenu ---------------------------------------------------------------------------------------------------------------------------*/
 div#divMenu{
     background-image: url('../Imagens/background.jpg');
     background-size: cover;
@@ -118,15 +120,8 @@ div#cardTituloConteudo{
     background-size: cover;
     background-repeat: no-repeat;
 }
-/* Estilização da divConteudo */
-td{
-    color: #6b4dcb;
-}
 
-
-
-
-/* -------------------------------------------------------------------------------------------------------------------------------------------- */
+/* Media querys------------------------------------------------------------------------------------------------------------------------------------ */
 
 /* Desktop grande */
 @media (min-width: 1200px) {   
@@ -138,11 +133,11 @@ td{
     .topEstilizado{
         margin-top: 3% !important;
     }
-    /* Estilização da divInicialMenu */
+    /* Estilização da divInicialMenu ---------------------------------------------------------------------------------------------------------------------------*/
     div#divInicialMenu{
         width: 100% !important;
     }
-    /*Estilizações divMenu*/
+    /*Estilizações divMenu ---------------------------------------------------------------------------------------------------------------------------*/
     button#btnNovo{
         margin-left: 2% !important;
         background-color: #0066cc !important;

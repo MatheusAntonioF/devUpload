@@ -1,4 +1,5 @@
 <?php
+//Importa o autoload para utilização das classes e métodos
 require_once __DIR__.'/../../vendor/autoload.php';
 
 use DevUpload\Model\ConteudoModel;
@@ -7,8 +8,6 @@ use DevUpload\Model\ConteudoModel;
 $fk_pastCont = $_POST['fk_pastCont'];
 
 $conteudos = (new ConteudoModel)->retornaArquivos($fk_pastCont);
-
-// <a href="" rel="noopener noreferrer" downlaod></a>
 
 //Percorre os conteudos listados devolvendo em formato de html
 foreach($conteudos as $conteudo){

@@ -4,6 +4,7 @@
     <!--  meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
     <!--CSS próprio-->
     <link rel="stylesheet" href="CSS/estilo.css">
 
@@ -36,8 +37,8 @@
                 <button type="button" class="btn btn-outline-primary" id="btnCadastro" data-toggle="modal" data-target="#modalCadastro">Cadastre-se</button>
             </div> 
         </nav>
-        <!-- ---------------------------------------------------------------------------------------------------------------------------------------------- -->
-        <!-- Modal Cadastro -->
+
+        <!-- Modal Cadastro de usuário ----------------------------------------------------------------------------------------------------------------------->
         <div class="modal" id="modalCadastro">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -88,7 +89,7 @@
                 </div>
             </div>
         </div>
-        <!-- ---------------------------------------------------------------------------------------------------------------------------------------------- -->
+        <!--Fim model---------------------------------------------------------------------------------------------------------------------------- -->
         <div class="container elementoNoCentro" >  
             <img src="Imagens/devInicial.png" alt="" srcset="">
             <p>Development by Matheus Felipe Antonio</p>
@@ -104,7 +105,7 @@
         ?>
         <div class="col-sm-4"></div>
         
-        <div id="divErros" class=" d-flex justify-content-center col-sm-4">
+        <div id="divErros" class="d-flex justify-content-center col-sm-4">
             
             <!-- Inicia Bloco php -->                    
             <?php 
@@ -127,8 +128,8 @@
         ?>    
         <br>
         <br><br>
-        <!-- --------------------------------------------------------------------------------------------------------------------------------------------- -->
-        <!-- Modal Login -->
+        
+        <!-- Modal Login ------------------------------------------------------------------------------------------------------------------------------------>
         <div class="modal" id="modalLogin">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -174,7 +175,7 @@
                 </div>
             </div>
         </div>
-        <!-- ---------------------------------------------------------------------------------------------------------------------------------------------- -->
+        <!-- Fim model-------------------------------------------------------------------------------------------------------------------------------- -->
         <br>
         <br>
         
@@ -206,20 +207,13 @@
                 </div>
             </div>
         </div>
-        
-
-
    </div>
-    
-    
+
     <!--Script auxiliar para ocultar/exibir senhas-->
     <script type="text/javascript">
         $("#userSenha").password('toggle');
         $("#senhaLogin").password('toggle');
-
-
     </script>
- 
   </body>
 </html>
    

@@ -2,6 +2,7 @@
 /_gh_pages/
 /site/.jekyll-metadata
 /site/docs/**/dist/
+.vscode
 
 # Ignore ruby/bundler files
 /.bundle/

@@ -6,6 +6,7 @@ use DevUpload\Router;
 
 $app = new Router();
 
+//Rota index
 $app->get('/', function(){
     return \DevUpload\Controller\IndexController::index();
 });

@@ -1,1 +1,0 @@
-SELECT contNome, contId FROM Conteudos WHERE fk_pastCont = '27';

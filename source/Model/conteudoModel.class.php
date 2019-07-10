@@ -26,14 +26,10 @@ class ConteudoModel extends AbsConexaoBD{
         
         //Converte fk_pastCont para int quando for inserido no SGBD
         $this->fk_pastCont = (int) $this->fk_pastCont;
-
         $arrayDeValores = array($this->conteudo, $this->contNome, $this->contCaminho, $this->fk_pastCont);
-
 
         $inseriu = self::executaPs($query, $arrayDeValores);
         
-
-
         if($inseriu){
             return true;
         }else{
@@ -41,11 +37,12 @@ class ConteudoModel extends AbsConexaoBD{
         }
     }
 
+    //Exclui arquivo do SGBD
     public function excluirArquivo($contId){
         $query = "SELECT contNome FROM Conteudos WHERE contId = ?";
 
         $arrayDeValores = array($contId);
-
+        
         self::executaPs($query, $arrayDeValores);
 
         $query = "DELETE FROM Conteudos WHERE contId = ?";
@@ -83,6 +80,8 @@ class ConteudoModel extends AbsConexaoBD{
         return $conteudos;
         
     }
+
+    //Retorna o nome do conteúdo pelo seu respectivo id
     public function retornaNomeConteudo($contId){
         $query = "SELECT contNome FROM Conteudos WHERE contId = ?";
 
