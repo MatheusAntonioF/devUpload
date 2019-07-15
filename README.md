@@ -19,3 +19,4 @@ Projeto desenvolvido em PHP utilizando composer no padrão MVC. Tal sistema foi 
 
     $ make serve
 
+Em casos de erros ou dúvidas entrar em contato com: matheusantoniof@gmail.com
