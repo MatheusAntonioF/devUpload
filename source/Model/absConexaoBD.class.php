@@ -8,10 +8,10 @@ abstract class AbsConexaoBD extends \PDO {
     private $PDO;
     protected $pdoStatment;
     private $confUTF8 = "charset=utf8";
-    private $dbName = "devUpload";
+    private $dbName = "<NOME DO SEU BANCO DE DADOS>";
     private $host = "localhost";
-    private $usuario = "root";
-    private $senha = "440731";
+    private $usuario = "<NOME USUÁRIO>";
+    private $senha = "<SUA SENHA>";
     private $opcoes = array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION);
     /**
      * dbname
