@@ -18,5 +18,8 @@ Projeto desenvolvido em PHP utilizando composer no padrão MVC. Tal sistema foi 
 4. Com isso basta inicializar o servidor build com o comando:
 
     $ make serve
+    
+    
+Obs: LEMBRAR SEMPRE DE MUDAR AS CONFIGURAÇÕES PARA SE CONECTAR AO BANCO DE DADOS    
 
 Em casos de erros ou dúvidas entrar em contato com: matheusantoniof@gmail.com
