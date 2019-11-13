@@ -1,5 +1,6 @@
 # devUpload
 Projeto desenvolvido em PHP utilizando composer no padrão MVC. Tal sistema foi desenvolvido com um viés DIDÁTICO APENAS.
+##### Edit: A hospedagem do site apresenta alguns bugs.
 
 ## Execução
 
