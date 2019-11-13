@@ -1,7 +1,7 @@
 # devUpload
-Projeto desenvolvido em PHP utilizando composer no padrão MVC. Tal sistema foi desenvolvido com um viés didático apenas
+Projeto desenvolvido em PHP utilizando composer no padrão MVC. Tal sistema foi desenvolvido com um viés DIDÁTICO APENAS.
 
-# Execução
+## Execução
 
 1. Caso não tenha instalado o composer instale pelo link: https://getcomposer.org/
 
